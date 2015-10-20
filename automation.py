@@ -29,4 +29,5 @@ value(x2)
 
 print value(x1)
 print value(x2)
-__author__ = 'rado'
+
+print 'this is a test'
