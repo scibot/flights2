@@ -1,5 +1,19 @@
 __author__ = 'Rayna Todorcheva'
 
+#     Released under the GNU General Public License
+#     This program is free software: you can redistribute it and/or modify
+#     it under the terms of the GNU General Public License as published by
+#     the Free Software Foundation, either version 3 of the License, or
+#     (at your option) any later version.
+#
+#     This program is distributed in the hope that it will be useful,
+#     but WITHOUT ANY WARRANTY; without even the implied warranty of
+#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#     GNU General Public License for more details.
+#
+#     You should have received a copy of the GNU General Public License
+#     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 import csv
 import time
 import numpy as np
@@ -26,7 +40,7 @@ t = int(raw_input('Enter time intervals (in minutes): '))
 b_t = int(raw_input('Enter booth processing time (in minutes): '))
 
 # Arrival rate of the passenger at the queue - number of passengers per unit of time (10 minutes)
-a_rate = np.random.poisson(20, 100)
+a_rate = np.random.poisson(20, 21)
 
 print 'The max wait time at the queues is set to ', t_max, ' minutes'
 print 'Time intervals are set to ', t, ' minutes'
