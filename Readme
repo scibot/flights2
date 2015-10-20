@@ -1,0 +1,14 @@
+Flights Project from Rayna Todoricheva
+
+Input:
+
+    - Flight record - how many passengers arrive at certain hour - 24 hours for Day
+    - t_max - maximum  wait time at the queue.
+    - T = 1 day, t = some time period of time given by the user at runtime
+    - yk - booths' processing rate - input from the user at runtime
+
+Output:
+
+    - ar - arrival rate of the passengers at the queue - use poason randomizer
+        number of passenger per unit of time (10 minutes)
+    - optimized booth schedule
