@@ -37,13 +37,13 @@ t_max = int(raw_input('Enter a maximum waiting time at the queue (in minutes): '
 t = int(raw_input('Enter time intervals (in minutes): '))
 
 # b_t is the booth processing time
-b_t = int(raw_input('Enter booth processing time (in minutes): '))
+y_k = int(raw_input('Enter booth processing time (in minutes): '))
 
 # Arrival rate of the passenger at the queue - number of passengers per unit of time (10 minutes)
 a_rate = np.random.poisson(20, 1)
 
 print 'The max wait time at the queues is set to ', t_max, ' minutes'
 print 'Time intervals are set to ', t, ' minutes'
-print 'The booth processing time is ', b_t, ' minutes'
+print 'The booth processing time is ', y_k, ' minutes'
 print 'The arival rate is : ', a_rate
 
