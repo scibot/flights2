@@ -36,14 +36,21 @@ t_max = int(raw_input('Enter a maximum waiting time at the queue (in minutes): '
 # T = one day. "t" is the interval of time on which T is divided
 t = int(raw_input('Enter time intervals (in minutes): '))
 
-# b_t is the booth processing time
-y_k = int(raw_input('Enter booth processing time (in minutes): '))
+# b_k is the booth processing time - how much time for 1 passanger
+b_k = int(raw_input('Enter booth processing time (in minutes): '))
+y_k = 1.0/b_k
 
 # Arrival rate of the passenger at the queue - number of passengers per unit of time (10 minutes)
-a_rate = np.random.poisson(20, 1)
+# a_rate = np.random.poisson(20, 1)
+a_rate = int(raw_input('Enter Arrival rate (number of passengers per minute): '))
+
 
 print 'The max wait time at the queues is set to ', t_max, ' minutes'
 print 'Time intervals are set to ', t, ' minutes'
-print 'The booth processing time is ', y_k, ' minutes'
-print 'The arival rate is : ', a_rate
+print 'The booth processing time is ', b_k, ' minutes'
+print 'The arrival rate is : ', a_rate
+print 'Processing rate is : ', y_k
 
+# determine number of booths needed for a set interval of time
+num_booths = a_rate/y_k
+print 'Number of booths needed is: ', num_booths
