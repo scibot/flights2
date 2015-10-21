@@ -27,7 +27,7 @@ import numpy as np
 #         print 'Flight Number: ', flight_number
 #         print 'Arrives at: ', time.strftime("%H:%M:%S", time.gmtime(float(flight_time)*60))
 #         print 'With ',num_passengers ,'passengers.'
-#         print '--------------'
+#         print '-------------------'
 
 
 # t_max is the maximum wait time at the booth queue
@@ -40,7 +40,7 @@ t = int(raw_input('Enter time intervals (in minutes): '))
 b_t = int(raw_input('Enter booth processing time (in minutes): '))
 
 # Arrival rate of the passenger at the queue - number of passengers per unit of time (10 minutes)
-a_rate = np.random.poisson(20, 21)
+a_rate = np.random.poisson(20, 1)
 
 print 'The max wait time at the queues is set to ', t_max, ' minutes'
 print 'Time intervals are set to ', t, ' minutes'
