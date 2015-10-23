@@ -14,3 +14,13 @@ Output:
     - ar - arrival rate of the passengers at the queue - use poason randomizer
         number of passenger per unit of time (10 minutes)
     - optimized booth schedule
+
+
+PULP
+
+min Z = X0 + X1 + X2 +......+Xn
+
+X = number of booths open at certain hour. The day is devided into 1 hour increments
+
+Constrains:
+
