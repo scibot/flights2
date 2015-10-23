@@ -93,7 +93,6 @@ with open('flights_data.csv', 'rb') as f:
         print 'With ',num_passengers ,'passengers'
         print '-------------------'
 
-
 # t_max is the maximum wait time at the booth queue
 t_max = int(raw_input('Enter a maximum waiting time at the queue (in minutes): '))
 
