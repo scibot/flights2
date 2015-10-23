@@ -27,7 +27,58 @@ a_rate = [0,0,0,0,0,0,0,0,0,0,0,0,
           0,0,0,0,0,0,0,0,0,0,0,0]
 
 
-
+def addto (a_rate):
+    if flight_time in range(0,60):
+        a_rate[0] += int(num_passengers)
+    elif flight_time in range(60,120):
+        a_rate[1] += int(num_passengers)
+    elif flight_time in range(120,180):
+        a_rate[2] += int(num_passengers)
+    elif flight_time in range(180,240):
+        a_rate[3] += int(num_passengers)
+    elif flight_time in range(240,300):
+        a_rate[4] += int(num_passengers)
+    elif flight_time in range(300,360):
+        a_rate[5] += int(num_passengers)
+    elif flight_time in range(360,420):
+        a_rate[6] += int(num_passengers)
+    elif flight_time in range(420,480):
+        a_rate[7] += int(num_passengers)
+    elif flight_time in range(480,540):
+        a_rate[8] += int(num_passengers)
+    elif flight_time in range(540,600):
+        a_rate[9] += int(num_passengers)
+    elif flight_time in range(600,660):
+        a_rate[10] += int(num_passengers)
+    elif flight_time in range(660,720):
+        a_rate[11] += int(num_passengers)
+    elif flight_time in range(720,780):
+        a_rate[12] += int(num_passengers)
+    elif flight_time in range(780,840):
+        a_rate[13] += int(num_passengers)
+    elif flight_time in range(840,900):
+        a_rate[14] += int(num_passengers)
+    elif flight_time in range(900,960):
+        a_rate[15] += int(num_passengers)
+    elif flight_time in range(960,1020):
+        a_rate[16] += int(num_passengers)
+    elif flight_time in range(1020,1080):
+        a_rate[17] += int(num_passengers)
+    elif flight_time in range(1080,1140):
+        a_rate[18] += int(num_passengers)
+    elif flight_time in range(1140,1200):
+        a_rate[19] += int(num_passengers)
+    elif flight_time in range(1200,1260):
+        a_rate[20] += int(num_passengers)
+    elif flight_time in range(1260,1320):
+        a_rate[21] += int(num_passengers)
+    elif flight_time in range(1320,1380):
+        a_rate[22] += int(num_passengers)
+    elif flight_time in range(1380,1440):
+        a_rate[23] += int(num_passengers)
+    else:
+        print "outside the allowed range"
+    return
 
 with open('flights_data.csv', 'rb') as f:
     mycsv = csv.reader(f)
@@ -36,61 +87,12 @@ with open('flights_data.csv', 'rb') as f:
         num_passengers = row[1]
         flight_number = row[2]
         flight_time = int(flight_time)
-        if flight_time in range(0,60):
-            a_rate[0]=a_rate[0]+int(num_passengers)
-        elif flight_time in range(61,120):
-            a_rate[1]=a_rate[1]+int(num_passengers)
-        elif flight_time in range(121,180):
-            a_rate[2]=a_rate[2]+int(num_passengers)
-        elif flight_time in range(181,240):
-            a_rate[3]=a_rate[3]+int(num_passengers)
-        elif flight_time in range(241,300):
-            a_rate[4]=a_rate[4]+int(num_passengers)
-        elif flight_time in range(301,360):
-            a_rate[5]=a_rate[5]+int(num_passengers)
-        elif flight_time in range(361,420):
-            a_rate[6]=a_rate[6]+int(num_passengers)
-        elif flight_time in range(421,480):
-            a_rate[7]=a_rate[7]+int(num_passengers)
-        elif flight_time in range(481,540):
-            a_rate[8]=a_rate[8]+int(num_passengers)
-        elif flight_time in range(541,600):
-            a_rate[9]=a_rate[9]+int(num_passengers)
-        elif flight_time in range(601,660):
-            a_rate[10]=a_rate[10]+int(num_passengers)
-        elif flight_time in range(661,720):
-            a_rate[11]=a_rate[11]+int(num_passengers)
-        elif flight_time in range(721,780):
-            a_rate[12]=a_rate[12]+int(num_passengers)
-        elif flight_time in range(781,840):
-            a_rate[13]=a_rate[13]+int(num_passengers)
-        elif flight_time in range(841,900):
-            a_rate[14]=a_rate[14]+int(num_passengers)
-        elif flight_time in range(901,960):
-            a_rate[15]=a_rate[15]+int(num_passengers)
-        elif flight_time in range(961,1020):
-            a_rate[16]=a_rate[16]+int(num_passengers)
-        elif flight_time in range(1021,1080):
-            a_rate[17]=a_rate[17]+int(num_passengers)
-        elif flight_time in range(1081,1140):
-            a_rate[18]=a_rate[18]+int(num_passengers)
-        elif flight_time in range(1141,1200):
-            a_rate[19]=a_rate[19]+int(num_passengers)
-        elif flight_time in range(1201,1260):
-            a_rate[20]=a_rate[20]+int(num_passengers)
-        elif flight_time in range(1261,1320):
-            a_rate[21]=a_rate[21]+int(num_passengers)
-        elif flight_time in range(1321,1380):
-            a_rate[22]=a_rate[22]+int(num_passengers)
-        elif flight_time in range(1381,1440):
-            a_rate[23]=a_rate[23]+int(num_passengers)
+        addto(a_rate)
+        print 'Flight Number: ', flight_number
+        print 'Arrives at: ', time.strftime("%H:%M:%S", time.gmtime(float(flight_time)*60))
+        print 'With ',num_passengers ,'passengers'
+        print '-------------------'
 
-        # print 'Flight Number: ', flight_number
-        # print 'Arrives at: ', time.strftime("%H:%M:%S", time.gmtime(float(flight_time)*60))
-        # print 'With ',num_passengers ,'passengers'
-        # print '-------------------'
-
-print a_rate
 
 # t_max is the maximum wait time at the booth queue
 t_max = int(raw_input('Enter a maximum waiting time at the queue (in minutes): '))
@@ -180,3 +182,4 @@ for v in prob.variables():
 
 # The optimised objective function value is printed to the screen
 #print "Total Booths = ", value(prob.objective)
+
