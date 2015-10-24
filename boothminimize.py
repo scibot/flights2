@@ -34,4 +34,4 @@ for v in prob.variables():
     print v.name, "=", v.varValue
 
 # The optimised objective function value is printed to the screen
-#print "Total Booths = ", value(prob.objective)
+# print "Total Booths = ", value(prob.objective)
