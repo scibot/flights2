@@ -22,7 +22,7 @@ from pulp import *
 
 # Arrival rate of the passenger at the queue - number of passengers per unit of time (10 minutes)
 # a_rate = np.random.poisson(20, 1)
-#a_rate = int(raw_input('Enter Arrival rate (number of passengers per minute): '))
+# a_rate = int(raw_input('Enter Arrival rate (number of passengers per minute): '))
 a_rate = [0,0,0,0,0,0,0,0,0,0,0,0,
           0,0,0,0,0,0,0,0,0,0,0,0]
 
@@ -97,12 +97,12 @@ with open('flights_data.csv', 'rb') as f:
 t_max = int(raw_input('Enter a maximum waiting time at the queue (in minutes): '))
 
 # T = one day. "t" is the interval of time on which T is divided
-#t = int(raw_input('Enter time intervals (in minutes): '))
+# t = int(raw_input('Enter time intervals (in minutes): '))
 t = 1 # hour
 
 # b_k is the booth processing time - how much time for 1 passanger
 y_k = int(raw_input('Enter booth processing rate (# passengers per hour): '))
-#y_k = 1.0/b_k
+# y_k = 1.0/b_k
 
 
 # Create the 'prob' variable to contain the problem data
