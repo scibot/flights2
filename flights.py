@@ -94,11 +94,11 @@ with open('flights_data.csv', 'rb') as f:
         print '-------------------'
 
 # t_max is the maximum wait time at the booth queue
-t_max = int(raw_input('Enter a maximum waiting time at the queue (in minutes): '))
+# t_max = int(raw_input('Enter a maximum waiting time at the queue (in minutes): '))
 
 # T = one day. "t" is the interval of time on which T is divided
 #t = int(raw_input('Enter time intervals (in minutes): '))
-t = 1 # hour
+# t = 1 # hour
 
 # b_k is the booth processing time - how much time for 1 passanger
 y_k = int(raw_input('Enter booth processing rate (# passengers per hour): '))
@@ -108,7 +108,7 @@ y_k = int(raw_input('Enter booth processing rate (# passengers per hour): '))
 # Create the 'prob' variable to contain the problem data
 prob = LpProblem("The Booth Minimize Problem",LpMinimize)
 
-# The 2 variables  Booth1 and Booth2 are created with a lower limit of zero
+# The 2 variables Booth are created with a lower limit of zero
 x1=LpVariable("From 12:00 am to 1:00 am",0,None,LpInteger)
 x2=LpVariable("From 1:00 am to 2:00 am",0,None,LpInteger)
 x3=LpVariable("From 2:00 am to 3:00 am",0,None,LpInteger)
