@@ -25,7 +25,7 @@ from pulp import *
 # a_rate = int(raw_input('Enter Arrival rate (number of passengers per minute): '))
 a_rate = [0,0,0,0,0,0,0,0,0,0,0,0,
           0,0,0,0,0,0,0,0,0,0,0,0]
-ar_rate = int(raw_input('Enter arrival rate rate (# passengers per 1 minutes): '))
+ar_rate = int(raw_input('Enter arrival rate (# passengers per 1 minutes): '))
 # def add_to(a_rate):
 #     if flight_time in range(0,60):
 #         a_rate[0] += int(num_passengers)
