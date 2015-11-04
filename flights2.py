@@ -17,7 +17,6 @@ __author__ = 'Rayna Todorcheva'
 import csv
 import time
 import numpy as np
-from datetime import datetime
 from pulp import *
 
 
@@ -27,7 +26,6 @@ from pulp import *
 a_rate = [0,0,0,0,0,0,0,0,0,0,0,0,
           0,0,0,0,0,0,0,0,0,0,0,0]
 ar_rate = int(raw_input('Enter arrival rate rate (# passengers per 1 minutes): '))
-time_period = int(raw_input('Enter time period(in minutes)  (# results from 0:00 to 0:00 + time_period): '))
 # def add_to(a_rate):
 #     if flight_time in range(0,60):
 #         a_rate[0] += int(num_passengers)
@@ -82,69 +80,31 @@ time_period = int(raw_input('Enter time period(in minutes)  (# results from 0:00
 #     return
 
 
-output2_rows = []
-for i in xrange(0, time_period + 10, 10):
-    time_is = time.strftime("%H:%M:%S", time.gmtime(float(i) * 60))
-    output2_rows.append([time_is, 0])
-
 with open('flights_data.csv', 'rb') as f:
     mycsv = csv.reader(f)
-    out_file1 = open("output1.csv", 'wb')
-    writer1 = csv.writer(out_file1)
-    out_file2 = open("output2.csv", 'wb')
-    writer2 = csv.writer(out_file2)
+    out_file = open("flights_write.csv", 'wb')
+    writer = csv.writer(out_file)
     for row in mycsv:
-        timetable = []
         flight_time = row[0]
         num_passengers = row[1]
         flight_number = row[2]
         flight_time = int(flight_time)
         num_passengers = int(num_passengers)
-        # add_to(a_rate)
+        #add_to(a_rate)
         print 'Flight Number: ', flight_number
-        print 'Arrives at: ', time.strftime("%H:%M:%S", time.gmtime(float(flight_time) * 60))
-        print 'With ', num_passengers, 'passengers'
+        print 'Arrives at: ', time.strftime("%H:%M:%S", time.gmtime(float(flight_time)*60))
+        print 'With ',num_passengers ,'passengers'
         print 'start_time is', flight_time
-        # t is total passenger traveling time from the gate to boot line
-        t = num_passengers / ar_rate
+        #t is total passenger traveling time from the gate to boot line
+        t = num_passengers/ar_rate
         print 'The total passenger travel time is:', t
         total_time = flight_time + t
         print 'end_time is: ', total_time
         print '-------------------'
-        row.append(total_time)
-        writer1.writerow(row)
-        # flight arrival interval
-        time_from = time.strftime("%H:%M:%S", time.gmtime(float(flight_time) * 60))
-        time_to = time.strftime("%H:%M:%S", time.gmtime(float(total_time) * 60))
-        print 'time from:', time_from
-        print 'time to:', time_to
-        # check time periods for current plane
-        for idx, output2_row in enumerate(output2_rows):
-            if (time_from <= output2_row[0] and output2_row[0] <= time_to ):
-                output2_rows[idx][1] += 1
-                print "Flight in period: ", output2_rows[idx][0]
+        row[2] = total_time
+        writer.writerow(row)
 
-    out_file1.close()
-    # write second output2 file
-    for output2_row in output2_rows:
-        writer2.writerow(output2_row)
-
-    out_file2.close()
-
-total_arrival_rate = 0
-with open('output2.csv', 'rb') as f:
-    times_csv = csv.reader(f)
-    for row in times_csv:
-        # difference in minutes between 0:00:00 and current time
-        start = datetime.strptime("0:00:00", "%H:%M:%S")
-        end = datetime.strptime(row[0], "%H:%M:%S")
-        diff = end - start
-        minutes = (diff.days * 1440) + (diff.seconds / 60)
-        print "Elapsed minutes: ", minutes
-        # time_in_minutes * planes_in_that_time * arrival_rate
-        total_arrival_rate += minutes * int(row[1]) * ar_rate
-
-print "Total arrival rate: ", total_arrival_rate
+    out_file.close()
 
 print a_rate
 # t_max is the maximum wait time at the booth queue
