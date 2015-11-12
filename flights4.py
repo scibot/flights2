@@ -17,7 +17,7 @@ __author__ = 'Rayna Todorcheva'
 import csv
 import time
 import numpy as np
-from datetime import datetime
+import datetime
 from pulp import *
 
 
@@ -26,6 +26,8 @@ from pulp import *
 ar_rate = int(raw_input('Enter arrival rate (# passengers per 1 minutes): '))
 # results from 0:00 to 0:00 + time_period
 time_period = int(raw_input('Enter time period(in minutes): '))
+
+booth_change = int(raw_input('Enter booth change time(in minutes): '))
 
 # t_max is the maximum wait time at the booth queue
 t_max = int(raw_input('Enter a maximum waiting time at the queue (in minutes): '))
@@ -39,11 +41,17 @@ y_k = int(raw_input('Enter booth processing rate (# passengers per 10 minutes): 
 
 # create time periods
 output2_rows = []
-for i in xrange(0, time_period + 10, 10):
+for i in xrange(0, time_period, 10):
     time_is = time.strftime("%H:%M:%S", time.gmtime(float(i) * 60))
     output2_rows.append([time_is, 0])
 
-with open('flights_data2.csv', 'rb') as f:
+#if ((time_period + 10)%10 > 0):
+#    last_time_period = (time_period%10)*10
+#    output2_rows.append([time.strftime("%H:%M:%S", time.gmtime(float() * 60)), 0])
+#else:
+output2_rows.append([time.strftime("%H:%M:%S", time.gmtime(float(time_period) * 60)), 0])
+
+with open('flights_data.csv', 'rb') as f:
     mycsv = csv.reader(f)
     out_file1 = open("output1.csv", 'wb')
     writer1 = csv.writer(out_file1)
@@ -92,8 +100,8 @@ with open('output2.csv', 'rb') as f:
     times_csv = csv.reader(f)
     for row in times_csv:
         # difference in minutes between 0:00:00 and current time
-        start = datetime.strptime("0:00:00", "%H:%M:%S")
-        end = datetime.strptime(row[0], "%H:%M:%S")
+        start = datetime.datetime.strptime("0:00:00", "%H:%M:%S")
+        end = datetime.datetime.strptime(row[0], "%H:%M:%S")
         diff = end - start
         minutes = (diff.days * 1440) + (diff.seconds / 60)
         print "Elapsed minutes: ", minutes
@@ -131,20 +139,35 @@ prob = LpProblem("The Booth Minimize Problem", LpMinimize)
 # x23 = LpVariable("From 10:00 pm to 11:00 pm", 0, None, LpInteger)
 # x24 = LpVariable("From 11:00 pm to 12:00 am", 0, None, LpInteger)
 
+#x1-24 = 1 : N
+x = []
+last_time = output2_rows[len(output2_rows) - 1][0]
+for idx, output2_row in enumerate(output2_rows):
+    #check if end_time is bigger than last time in the list, if not another time period will be added from last_time to last_time+10 minutes which is not needed
+    #time_to = datetime.datetime.strptime(output2_row[0], "%H:%M:%S") + datetime.timedelta(0,600)
+    if (idx < len(output2_rows) - 1):
+        time_from = output2_rows[idx][0]
+        time_to = output2_rows[idx + 1][0]
+        x.append(LpVariable("From " + time_from + " to " + time_to, 0, None, LpInteger))
 
-booth_change = 10
-N = time_period/booth_change
-x = pulp.LpVariable("From", 0, None, LpInteger)
 
+#x = pulp.LpVariable("From", 0, None, LpInteger)
+
+N = (time_period)/booth_change
+#sum 1 .. N
 # The objective function is added to 'prob' first
-prob += sum(x[i] for i in range), "# of Booth Hours"
+prob += sum(x[i] for i in range(N)), "# of Booth Hours"
 
 upperL = t_total/booth_change
 remainder = t_total - upperL * booth_change
-
-
+print upperL
+print time_period/booth_change
+# from 0 to upperL step - booth_change
 # The constraints are entered
-prob += sum([y_k * x[i] for i in upperL]) + y_k * x[upperL + 1] * remainder >= total_arrival_rate
+if (upperL+1 == len(x)):
+    prob += sum([y_k * x[i] for i in range(upperL)]) + y_k * x[upperL + 1] * remainder >= total_arrival_rate
+else:
+    prob += sum([y_k * x[i] for i in range(upperL)]) >= total_arrival_rate
 
 
 # The problem data is written to an .lp file
