@@ -86,7 +86,7 @@ with open('flights_dataTest.csv', 'rb') as f:
 
         #flight start time
         flight_time += travel_min
-        travel_max = math.ceil(pow(c * num_passengers, alpha))
+        travel_max = math.ceil(c*pow(num_passengers, alpha))
 
         #flight end time
         total_time = flight_time + travel_max
@@ -201,7 +201,7 @@ def get_period_arr_rate(time_to):
     return result
 
 
-#print times
+print times
 
 # The constraints are entered
 print x
@@ -213,14 +213,14 @@ with open('output3.csv', 'rb') as f:
 
 for j in range(0, len(times)):
     if (times[j]+t_max <= booth_change):
-        prob += y_k * x[0] * (times[j] + t_max) >= get_period_arr_rate(times[j] + t_max)
+        prob += y_k * x[0] * (times[j] + t_max) >= get_period_arr_rate(times[j])
     else:
         m = (times[j]+t_max) / booth_change
         r = (times[j]+t_max) - m * booth_change
         #print "time ", times[j]
         #print m
         #print r
-        prob += lpSum([booth_change*y_k * x[i] for i in range(0,m-1)]) + y_k*x[m] * r >= get_period_arr_rate(times[j] + t_max)
+        prob += lpSum([booth_change*y_k * x[i] for i in range(0,m-1)]) + y_k*x[m] * r >= get_period_arr_rate(times[j])
 
 
 # The problem data is written to an .lp file
